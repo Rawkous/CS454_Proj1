@@ -1,0 +1,159 @@
+CS 454 - Project 1 - Sample input / output transcript
+======================================================
+
+Session captured by piping the inputs below into "python3 project1.py".
+Lines beginning with ">" are what the user typed; everything else is
+exactly what the program printed to the screen.  The L'' DFA is built
+lazily on the first choice-2 query, so stderr progress messages for
+that one-time build and sweep are shown inline (in brackets).
+
+
+===========================================================
+ CS 454 - Project 1 - Counting strings via DFA
+ Martinez & Orozco
+===========================================================
+
+
+  (1) Count strings of length n in L  (every 6-window hits a,b,c,d)
+  (2) Count strings of length n in L' (as (1), plus even n with 'aa' as the middle two)
+  (3) Quit
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 1
+  |{w in L : |w| = 1}| = 4
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 5
+  |{w in L : |w| = 5}| = 1024
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 6
+  |{w in L : |w| = 6}| = 1560
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 10
+  |{w in L : |w| = 10}| = 81552
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 50
+  |{w in L : |w| = 50}| = 3639681246440318800872
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 100
+  |{w in L : |w| = 100}| = 2366245453462025611146486720383147159575632
+
+Enter choice (1/2/3): > 1
+Enter n (1..300):     > 300
+  |{w in L : |w| = 300}| =
+    422712955714297652503810932962440341993232019899989706624
+    463784777305369467441228923949791375260837098580719271155
+    343635818936
+
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 1
+  |{w in L' : |w| = 1}| = 0   (L' is empty for odd lengths)
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 2
+
+    [init] building L'' product DFA (1865956 states, 16 symbols) ...
+    [init] L'' built in 3.63s; running two-stage self-test ...
+    [init] self-test passed in 2.72s.
+    [L''] k=1/0  (already cached, no sweep needed)
+
+  |{w in L' : |w| = 2}| = N''_0(0) = 1
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 4
+  |{w in L' : |w| = 4}| = N''_0(1) = 16
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 10
+  |{w in L' : |w| = 10}| = N''_0(4) = 942
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 100
+
+    [L''] sweeping k=5 .. 49  (~25 s on this machine)
+
+  |{w in L' : |w| = 100}| = N''_0(49) =
+    53698358586035946091697705580011523688344
+
+Enter choice (1/2/3): > 2
+Enter n (1..300):     > 300
+
+    [L''] sweeping k=50 .. 149  (~110 s on this machine)
+
+  |{w in L' : |w| = 300}| = N''_0(149) =
+    9592830634581306740721075508021531445213884633869590897663
+    329675105622948768499953916371410063796325180039820590441
+    962557152
+
+Enter choice (1/2/3): > 3
+Goodbye.
+
+
+======================================================================
+Instructor-provided test cases (Canvas)
+======================================================================
+
+Inputs piped to project1.py: 1/62, 1/100, 2/62, 2/100, 3.
+
+    |{w in L : |w| = 62}|   = 359900538890035317508583976                      expected: same   OK
+    |{w in L : |w| = 100}|  = 2366245453462025611146486720383147159575632      expected: same   OK
+    |{w in L' : |w| = 62}|  = N''_0(30) = 8167397856378064530466812            expected: same   OK
+    |{w in L' : |w| = 100}| = N''_0(49) = 53698358586035946091697705580011523688344
+                                                                               expected: same   OK
+
+
+======================================================================
+Independent cross-check (also captured here for the grader's benefit)
+======================================================================
+
+Running "python3 verify.py" on the same machine produces:
+
+    ----- Check 1: L vs brute force for n = 0..11 -----
+      n= 0  DFA=1  brute=1  OK
+      n= 1  DFA=4  brute=4  OK
+      n= 2  DFA=16  brute=16  OK
+      n= 3  DFA=64  brute=64  OK
+      n= 4  DFA=256  brute=256  OK
+      n= 5  DFA=1024  brute=1024  OK
+      n= 6  DFA=1560  brute=1560  OK
+      n= 7  DFA=4440  brute=4440  OK
+      n= 8  DFA=12072  brute=12072  OK
+      n= 9  DFA=31368  brute=31368  OK
+      n=10  DFA=81552  brute=81552  OK
+      n=11  DFA=217008  brute=217008  OK
+
+    ----- Check 2: L' vs brute force for even n in 2..12 -----
+      n= 2  L''(k=0)=1  brute=1  OK
+      n= 4  L''(k=1)=16  brute=16  OK
+      n= 6  L''(k=2)=60  brute=60  OK
+      n= 8  L''(k=3)=258  brute=258  OK
+      n=10  L''(k=4)=942  brute=942  OK
+      n=12  L''(k=5)=15072  brute=15072  OK
+
+    ----- Check 3: L' vs forward-DP for even n in 2..22 -----
+      n= 2  L''(k=0)=1  fwd-DP=1  OK
+      n= 4  L''(k=1)=16  fwd-DP=16  OK
+      n= 6  L''(k=2)=60  fwd-DP=60  OK
+      n= 8  L''(k=3)=258  fwd-DP=258  OK
+      n=10  L''(k=4)=942  fwd-DP=942  OK
+      n=12  L''(k=5)=15072  fwd-DP=15072  OK
+      n=14  L''(k=6)=90492  fwd-DP=90492  OK
+      n=16  L''(k=7)=577824  fwd-DP=577824  OK
+      n=18  L''(k=8)=3874740  fwd-DP=3874740  OK
+      n=20  L''(k=9)=26701890  fwd-DP=26701890  OK
+      n=22  L''(k=10)=184218198  fwd-DP=184218198  OK
+
+    ----- Check 4: factored cross-check at n = 300 -----
+      factored method (n=300): 2.2s
+      factored result = 9592830634581306740721075508021531445213884
+        633869590897663329675105622948768499953916371410063796
+        325180039820590441962557152
+      L'' counter (n=300):     132.1s
+      equal? OK
+
+    ALL CHECKS PASSED.
