@@ -2,9 +2,9 @@
 Fall 2026 - due Oct 15, 2026
 Team: B. Axel Martinez and Emilio Orozco
 
-===========================================================================
+
 WHAT THIS PROGRAM DOES
-===========================================================================
+
 
 Given the alphabet Sigma = {a, b, c, d}, the project asks for the number of
 strings of length n for two languages:
@@ -19,9 +19,9 @@ The program builds the appropriate DFAs explicitly, and for an input n in
 1..300 computes the exact (unlimited-precision) number of length-n strings
 accepted.
 
-===========================================================================
+
 FILES
-===========================================================================
+
 
   project1.py   - the graded program.  Interactive menu with the three
                   choices required by the handout (1 = count in L,
@@ -35,9 +35,9 @@ FILES
                   both choices.
   README.txt    - this file.
 
-===========================================================================
+
 HOW TO RUN
-===========================================================================
+
 
     ./run.sh              # interactive menu
     ./run.sh -t           # run the full verification harness
@@ -49,9 +49,9 @@ or equivalently:
 
 Python 3.8+ with numpy is required.  No other dependencies.
 
-===========================================================================
+
 STATE COUNTS AND LABELLING (as the handout requires)
-===========================================================================
+
 
 L DFA
 -----
@@ -94,9 +94,8 @@ L'' DFA
 
   Answer:  |{w in L' : |w| = n}|  =  N''_0(n/2 - 1)  for even n,  else 0.
 
-===========================================================================
+
 PSEUDO-CODE OF THE CORE ALGORITHMS
-===========================================================================
 
 Shared counting routine (follows the handout exactly):
 
@@ -122,9 +121,9 @@ numpy arrays carrying Python big-ints.  A startup self-test verifies that
 this reorganisation produces the same N_j vector as the literal 16-term
 sum computed from the materialised (1865956, 16) transition table.
 
-===========================================================================
+
 PERFORMANCE AND MEMORY NOTES
-===========================================================================
+
 
 L alone: effectively instantaneous for any n up to 300.
 
@@ -142,9 +141,9 @@ table is ~120 MB.  Both easily fit on the department server.
 Queries are cached, so once the sweep reaches some k = K, every query
 for n <= 2K+2 is answered instantly thereafter.
 
-===========================================================================
+
 TEAM CONTRIBUTIONS
-===========================================================================
+
 
 We worked on this project remotely, mostly in parallel rather than side
 by side.  Our setup was simple: we kept a shared Discord voice/chat open
