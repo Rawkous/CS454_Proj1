@@ -4,10 +4,6 @@
 CS 454 - Theory of Computation - Project 1
 B. Axel Martinez and Emilio Orozco  (Fall 2026)
 
-We wrote this file jointly, coordinating remotely over Discord while
-sharing the repo; see the TEAM CONTRIBUTIONS section of README.txt for
-how we worked together.
-
 Count the number of strings w of length n over the alphabet {a,b,c,d} such
 that every length-6 substring of w contains all four letters.  Call this
 language L.  Also count the strings of even length n in L whose two middle
@@ -44,9 +40,7 @@ from typing import Callable, List, Sequence, Tuple
 import numpy as np
 
 
-# =============================================================================
 # Section 1 - Alphabet and base-4 state encoding (we follow the PDF exactly)
-# =============================================================================
 
 ALPHABET: Tuple[str, ...] = ('a', 'b', 'c', 'd')
 
@@ -164,10 +158,7 @@ def decode_state(code: int) -> Tuple[str, ...]:
     return _CODE_OF_CODE[code]
 
 
-# =============================================================================
 # Section 2 - DFA for L
-# =============================================================================
-
 
 def _window_ok(w: Sequence[str]) -> bool:
     """True iff the length-6 window ``w`` contains all four letters a,b,c,d."""
@@ -228,9 +219,7 @@ def build_L_dfa() -> Tuple[List[List[int]], List[bool]]:
     return delta, accepting
 
 
-# =============================================================================
 # Section 3 - DFA for L''
-# =============================================================================
 #
 # Our derivation (the piece the handout defers to class)
 # ------------------------------------------------------
@@ -357,9 +346,7 @@ def build_Lpp_dfa(
     return delta_cols, delta_table, accepting
 
 
-# =============================================================================
 # Section 4 - Counting via the two-array N_j recurrence
-# =============================================================================
 
 
 def count_strings_L(
@@ -497,10 +484,7 @@ def _assert_two_stage_matches_literal(
                 % (k, int(prev_lit[0]), int(prev_two[0]))
             )
 
-
-# =============================================================================
 # Section 5 - Lazy incremental counters with caches
-# =============================================================================
 
 
 class _LCounter:
@@ -585,10 +569,7 @@ class _LppCounter:
         return self.cache[k]
 
 
-# =============================================================================
 # Section 6 - Interactive menu
-# =============================================================================
-
 
 _BANNER = (
     "\n"
