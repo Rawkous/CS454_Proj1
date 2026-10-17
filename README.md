@@ -26,11 +26,7 @@ FILES
   project1.py   - the graded program.  Interactive menu with the three
                   choices required by the handout (1 = count in L,
                   2 = count in L', 3 = quit).  Loops until 3.
-  verify.py     - independent correctness harness (NOT part of the graded
-                  program; it is provided so the grader can convince
-                  themselves the n = 300 answers are right).
-  run.sh        - thin launcher.  "./run.sh" starts the menu;
-                  "./run.sh -t" runs verify.py.
+  run.sh        - thin launcher.  "./run.sh" starts the menu.
   sample_io.txt - captured transcript of a session including n = 300 for
                   both choices.
   README.md     - this file.
@@ -40,12 +36,10 @@ HOW TO RUN
 
 
     ./run.sh              # interactive menu
-    ./run.sh -t           # run the full verification harness
 
 or equivalently:
 
     python3 project1.py
-    python3 verify.py
 
 Python 3.8+ with numpy is required.  No other dependencies.
 
