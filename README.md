@@ -1,4 +1,4 @@
-#CS 454 - Theory of Computation - Project 1
+# CS 454 - Theory of Computation - Project 1
 Fall 2026 - due Oct 15, 2026
 Team: B. Axel Martinez and Emilio Orozco
 
@@ -33,7 +33,7 @@ FILES
                   "./run.sh -t" runs verify.py.
   sample_io.txt - captured transcript of a session including n = 300 for
                   both choices.
-  README.txt    - this file.
+  README.md     - this file.
 
 
 HOW TO RUN
