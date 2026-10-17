@@ -8,10 +8,10 @@ lazily on the first choice-2 query, so stderr progress messages for
 that one-time build and sweep are shown inline (in brackets).
 
 
-===========================================================
+
  CS 454 - Project 1 - Counting strings via DFA
  Martinez & Orozco
-===========================================================
+
 
 
   (1) Count strings of length n in L  (every 6-window hits a,b,c,d)
@@ -94,9 +94,9 @@ Enter choice (1/2/3): > 3
 Goodbye.
 
 
-======================================================================
-Instructor-provided test cases (Canvas)
-======================================================================
+
+Provided test cases 
+
 
 Inputs piped to project1.py: 1/62, 1/100, 2/62, 2/100, 3.
 
@@ -107,9 +107,9 @@ Inputs piped to project1.py: 1/62, 1/100, 2/62, 2/100, 3.
                                                                                expected: same   OK
 
 
-======================================================================
-Independent cross-check (also captured here for the grader's benefit)
-======================================================================
+
+Independent cross-check 
+
 
 Running "python3 verify.py" on the same machine produces:
 
