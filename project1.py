@@ -4,21 +4,24 @@
 CS 454 - Theory of Computation - Project 1
 B. Axel Martinez and Emilio Orozco  (Fall 2026)
 
+We wrote this file jointly as a pair-programming effort; see the
+TEAM CONTRIBUTIONS section of README.txt for how we split the work.
+
 Count the number of strings w of length n over the alphabet {a,b,c,d} such
 that every length-6 substring of w contains all four letters.  Call this
 language L.  Also count the strings of even length n in L whose two middle
 symbols are 'aa' (language L').
 
-Both counts are produced by building the appropriate DFA explicitly and
+We produce both counts by building the appropriate DFA explicitly and
 running the two-array N_j(k) recurrence described in the project handout:
 
     N_j(k)  =  sum_{x in Sigma}  N_{delta(j,x)}(k-1)
     N_j(0)  =  1 if j is accepting, else 0
 
-with the final answer being N_0(n), using two length-|Q| arrays "prev" and
-"next" and copying "next" back into "prev" after each iteration.
+with the final answer being N_0(n), using our two length-|Q| arrays "prev"
+and "next" and copying "next" back into "prev" after each iteration.
 
-Two DFAs are built:
+We build two DFAs:
 
     L     : 1366 states, 4 symbols         (shift register of last 5 symbols)
     L''   : 1366^2 = 1,865,956 states, 16 symbols  (product construction;
@@ -41,7 +44,7 @@ import numpy as np
 
 
 # =============================================================================
-# Section 1 - Alphabet and base-4 state encoding (follows the PDF exactly)
+# Section 1 - Alphabet and base-4 state encoding (we follow the PDF exactly)
 # =============================================================================
 
 ALPHABET: Tuple[str, ...] = ('a', 'b', 'c', 'd')
@@ -52,9 +55,9 @@ ALPHABET: Tuple[str, ...] = ('a', 'b', 'c', 'd')
 DIGIT = {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 INV_DIGIT = {v: k for k, v in DIGIT.items()}
 
-# Buffers have length 0..5, giving 1+4+16+64+256+1024 = 1365 valid states.
-# The additional "fail" state (reached once a bad length-6 window is scanned)
-# is labelled 1365.  Hence the L DFA has M_L = 1366 states.
+# Our buffers have length 0..5, giving 1+4+16+64+256+1024 = 1365 valid states.
+# We add one more "fail" state (reached once a bad length-6 window is scanned)
+# labelled 1365.  So our L DFA has M_L = 1366 states.
 M_L: int = 1366
 FAIL_L: int = 1365
 
@@ -228,36 +231,36 @@ def build_L_dfa() -> Tuple[List[List[int]], List[bool]]:
 # Section 3 - DFA for L''
 # =============================================================================
 #
-# Derivation (the piece the handout defers to class)
-# --------------------------------------------------
+# Our derivation (the piece the handout defers to class)
+# ------------------------------------------------------
 # A word in L' of length n = 2m has the form   w = u 'a' 'a' v   with
-# |u| = |v| = m - 1, and w must be in L.  Reading u left-to-right and v
-# right-to-left in lockstep yields a word   z = (u_1, v_{m-1})
+# |u| = |v| = m - 1, and w must be in L.  We read u left-to-right and v
+# right-to-left in lockstep, which gives us a word   z = (u_1, v_{m-1})
 # (u_2, v_{m-2}) ... (u_{m-1}, v_1)  of length m-1 over the 16-symbol pair
 # alphabet Sigma x Sigma.
 #
-# A product state (p, q) tracks the forward L-DFA state on u (component p)
+# Our product state (p, q) tracks the forward L-DFA state on u (component p)
 # and the forward L-DFA state on reversed-v (component q); the forward
-# L-DFA on reversed-v coincides with the "backward" DFA on v because the
+# L-DFA on reversed-v coincides with the "backward" DFA on v because our
 # window predicate is symmetric under reversal.  Each product state has
 # 16 outgoing transitions:
 #
 #     delta''((p,q), (x,y)) = (delta_L(p, x), delta_L(q, y))
 #
-# The start state is (0, 0) = (epsilon, epsilon).  A product state (p, q)
-# is accepting iff neither component is the fail state AND the joined
-# string   buf(p) + "aa" + reverse(buf(q))   has every length-6 window
-# containing a,b,c,d.  Each junction-crossing window has at most 5 symbols
-# on either side of "aa", so the joined length-<=12 string captures every
-# window that straddles the middle; windows fully inside u or v were
-# already policed by the component DFAs.
+# Our start state is (0, 0) = (epsilon, epsilon).  We call a product
+# state (p, q) accepting iff neither component is the fail state AND the
+# joined string   buf(p) + "aa" + reverse(buf(q))   has every length-6
+# window containing a,b,c,d.  Each junction-crossing window has at most 5
+# symbols on either side of "aa", so this joined length-<=12 string
+# captures every window that straddles the middle; windows fully inside u
+# or v were already policed by our component DFAs.
 #
 # Hence the count of length-n strings in L' (n = 2m, even) is
 # N''_0(m-1), and 0 for odd n.
 #
-# State labelling for L'' per the handout: state (p, q) carries integer
-# label p * M_L + q, so the labels run 0 .. M_L^2 - 1 = 1,865,955.  Input
-# symbols are labelled 4*x + y in 0..15 where x, y are 0..3 digits.
+# Our state labelling for L'' per the handout: state (p, q) carries integer
+# label p * M_L + q, so our labels run 0 .. M_L^2 - 1 = 1,865,955.  We
+# label input symbols as 4*x + y in 0..15 where x, y are 0..3 digits.
 
 
 M_LPP: int = M_L * M_L           # 1,865,956 states
@@ -422,17 +425,18 @@ def _lpp_step_two_stage(
     prev: np.ndarray,
     delta_cols: np.ndarray,
 ) -> np.ndarray:
-    """One step of the recurrence exploiting the product structure.
+    """One step of our recurrence, exploiting the product structure.
 
-    The 16-term sum   sum_{x,y} prev[delta(p,x)*M + delta(q,y)]   factors by
-    associativity of addition as
+    We factor the 16-term sum   sum_{x,y} prev[delta(p,x)*M + delta(q,y)]
+    by associativity of addition into
 
         Q[p, r] = sum_{y}  prev2d[p, delta_L(r, y)]           (mix over y)
         next2d[p, q] = sum_{x}  Q[delta_L(p, x), q]           (mix over x)
 
-    where prev2d has shape (M_L, M_L).  Both stages are 4 vectorised column /
+    where prev2d has shape (M_L, M_L).  Each stage is 4 vectorised column /
     row adds over object-dtype numpy arrays carrying Python big-ints; this is
-    the same arithmetic as the literal 16-term sum, just reassociated.
+    the same arithmetic as the literal 16-term sum, just reassociated, which
+    is why we also run the startup self-test below to double-check.
     """
     prev2d = prev.reshape(M_L, M_L)
 
@@ -457,14 +461,14 @@ def _assert_two_stage_matches_literal(
     sample_size: int = 20_000,
     iterations: int = 3,
 ) -> None:
-    """Startup self-test: run both the literal and two-stage step a few times
-    starting from the real L'' initial vector, and assert they agree on a
-    random sample of states.
+    """Our startup self-test: we run both the literal and two-stage step a
+    few times starting from the real L'' initial vector, and assert they
+    agree on a random sample of states.
 
-    Keeping the comparison to a random subset keeps the self-test fast while
-    still exercising the real DFA.  The two methods compute the same
-    mathematical sum, so agreement on 20k random states is overwhelming
-    evidence of equivalence.
+    We keep the comparison to a random subset so the self-test stays fast
+    while still exercising the real DFA.  Both methods compute the same
+    mathematical sum, so if we see them agree on 20k random states we
+    consider that overwhelming evidence of equivalence.
     """
     rng = np.random.default_rng(seed=454)
     sample = rng.choice(M_LPP, size=sample_size, replace=False)

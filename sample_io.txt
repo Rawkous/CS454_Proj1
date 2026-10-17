@@ -123,9 +123,9 @@ Running "python3 verify.py" on the same machine produces:
       n= 6  DFA=1560  brute=1560  OK
       n= 7  DFA=4440  brute=4440  OK
       n= 8  DFA=12072  brute=12072  OK
-      n= 9  DFA=31368  brute=31368  OK
+      n= 9  DFA=31584  brute=31584  OK
       n=10  DFA=81552  brute=81552  OK
-      n=11  DFA=217008  brute=217008  OK
+      n=11  DFA=211224  brute=211224  OK
 
     ----- Check 2: L' vs brute force for even n in 2..12 -----
       n= 2  L''(k=0)=1  brute=1  OK

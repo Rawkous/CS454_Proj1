@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 """
 CS 454 - Project 1 - Independent verification harness.
+B. Axel Martinez and Emilio Orozco  (Fall 2026)
 
-This file is NOT part of the graded program.  It cross-checks the main
+We wrote this file jointly (pair-programmed alongside project1.py) so that
+we could convince ourselves our n=300 answers are correct.
+
+This file is NOT part of our graded program.  It cross-checks our main
 project1.py in three independent ways so we can trust the n=300 answer:
 
   Check 1 (small L)      - brute force all 4^n strings for n <= 11 and
@@ -82,8 +86,8 @@ def forward_dp_count_Lprime(
     """Count length-n L' strings by running a forward DP on the single L DFA,
     forcing the two middle positions to be 'a'.
 
-    This is independent of the product construction in project1.py: it uses
-    only the forward L DFA and conditioning on the two middle symbols.
+    We keep this independent of the product construction in project1.py: it
+    uses only the forward L DFA and conditioning on the two middle symbols.
     """
     if n % 2 == 1:
         return 0
@@ -119,7 +123,8 @@ def factored_count_Lprime(
            N''_0(k) = sum_{p,q} F(p,k) F(q,k) accept(p,q)
 
     where F(p,k) is the number of length-k words driving the L DFA from 0 to p.
-    Fast: one 1366-wide forward sweep plus one (1366,1366) numpy expression.
+    This is our fast check: one 1366-wide forward sweep plus one (1366,1366)
+    numpy expression.
     """
     if n % 2 == 1:
         return 0
