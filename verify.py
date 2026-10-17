@@ -4,8 +4,8 @@
 CS 454 - Project 1 - Independent verification harness.
 B. Axel Martinez and Emilio Orozco  (Fall 2026)
 
-We wrote this file jointly (pair-programmed alongside project1.py) so that
-we could convince ourselves our n=300 answers are correct.
+We wrote this file jointly (alongside project1.py, coordinating remotely
+over Discord) so we could convince ourselves our n=300 answers are correct.
 
 This file is NOT part of our graded program.  It cross-checks our main
 project1.py in three independent ways so we can trust the n=300 answer:

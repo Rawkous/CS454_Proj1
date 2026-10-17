@@ -4,8 +4,9 @@
 CS 454 - Theory of Computation - Project 1
 B. Axel Martinez and Emilio Orozco  (Fall 2026)
 
-We wrote this file jointly as a pair-programming effort; see the
-TEAM CONTRIBUTIONS section of README.txt for how we split the work.
+We wrote this file jointly, coordinating remotely over Discord while
+sharing the repo; see the TEAM CONTRIBUTIONS section of README.txt for
+how we worked together.
 
 Count the number of strings w of length n over the alphabet {a,b,c,d} such
 that every length-6 substring of w contains all four letters.  Call this

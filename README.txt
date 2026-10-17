@@ -146,39 +146,51 @@ for n <= 2K+2 is answered instantly thereafter.
 TEAM CONTRIBUTIONS
 ===========================================================================
 
-We worked on this project together as a pair-programming effort: we sat
-side by side for every file and talked through the design at every step,
-so there is no clean "Axel wrote X, Emilio wrote Y" split.
+We worked on this project remotely, mostly in parallel rather than side
+by side.  Our setup was simple: we kept a shared Discord voice/chat open
+whenever we were working, the code lived in our shared git repository,
+and the written report lived in a shared Google Doc so either of us
+could edit it at any time.
 
-Here is roughly how we went about it:
+Our schedule was mainly on weekends, roughly 11 am to 1 pm, with a few
+shorter weekday sessions whenever one of us hit a problem that needed
+the other person's eyes.  Because we were always on Discord during those
+sessions, every design decision was talked through live even though we
+were each typing on our own machine.
 
-  - We worked out the DFA for L together on the whiteboard before either
-    of us touched the keyboard - the base-4 encoding scheme from the
-    handout, our 1365 buffer states plus the fail state, and the
-    window check we run on reading each new symbol.
+Rough recap of how the work went:
 
-  - We derived the product construction for L'' together as well: our
-    (p, q) state labelling, the u-aa-v decomposition, and the argument
-    for why our junction check only needs the joined length-<=12 string.
-    One of us drove the keyboard while the other read the handout aloud
-    and double-checked our indices.
+  - We worked out the DFA for L together over Discord before we started
+    coding - we sketched the base-4 encoding scheme from the handout,
+    the 1365 buffer states plus the fail state, and the length-6 window
+    check in a shared scratchpad, then one of us committed the first
+    cut of build_L_dfa and the other reviewed and tweaked it in the
+    next session.
+
+  - We derived the product construction for L'' the same way: we talked
+    through the (p, q) state labelling, the u-aa-v decomposition, and
+    the argument for why our junction check only needs the joined
+    length-<=12 string, with both of us reading the handout out loud to
+    each other and double-checking indices.
 
   - The two-stage factored iteration for L'' (splitting the 16-term sum
     into two 4-term stages so our big numpy array stays manageable) was
-    the trickiest piece for us.  We prototyped it in a scratch file,
-    convinced ourselves on paper that our reassociation is identical to
-    the literal 16-term sum, and then wrote the self-test (we verify
-    that both produce the same N_j vector on a random sample of 20k
-    states) so that we would catch any indexing mistake up front.
+    the trickiest piece for us.  One of us prototyped it in a scratch
+    file, the other convinced themselves on paper that the reassociation
+    is identical to the literal 16-term sum, and then we wrote the
+    self-test (we verify that both methods produce the same N_j vector
+    on a random sample of 20k states) so we would catch any indexing
+    mistake up front.
 
   - We wrote verify.py as a team sanity check once our main program
-    produced its first n = 300 answer, so that we could show the grader
-    three independent methods (brute force for small n, forward DP for
-    medium n, and our factored path-count identity for n = 300) all
-    agreeing on the same number.
+    produced its first n = 300 answer, so we could show the grader three
+    independent methods (brute force for small n, forward DP for medium
+    n, and the factored path-count identity for n = 300) all agreeing
+    on the same number.
 
   - We put together this README, the sample_io transcript, and our
-    written report jointly after the code was finalised.
+    written report jointly in the shared Google Doc after the code was
+    finalised, trading paragraphs back and forth over Discord.
 
 Any bug, any typo, and any design choice in this submission belongs to
 both of us.
